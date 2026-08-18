@@ -169,8 +169,8 @@ Antes de rodar o bot, você precisará de:
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
-cd seu-repositorio
+git clone https://github.com/Muro2116/BotDiscordTriangleAgency
+cd BotDiscordTriangleAgency
 ```
 
 ### 2. Crie um ambiente virtual
@@ -343,38 +343,6 @@ pip install -r requirements.txt
 ```
 
 e confirme que a biblioteca `discord.py` foi instalada corretamente.
-
----
-
-## Observações sobre a arquitetura
-
-O projeto é simples, direto e eficiente para um bot de Discord. Ele centraliza:
-
-- a lógica de regras do sistema de jogo;
-- o processamento assíncrono de interações;
-- a criação visual do resultado via embed;
-- a experiência do usuário por meio de botões e modal.
-
-Essa forma de organização facilita manutenção, evolução do código e adição de novas ações de jogo.
-
----
-
-## Licença
-
-Este projeto pode ser usado e adaptado livremente para fins educacionais ou pessoais. Se for publicar em GitHub, é recomendável incluir uma licença adequada, como MIT, caso queira facilitar o uso por terceiros.
-
----
-
-## Conclusão
-
-O bot de Triangle Agency é uma solução prática para automatizar um sistema de dados dentro do Discord, com foco em experiência visual, regras internas do jogo e interação direta com o usuário. A combinação de Python, discord.py, embeds e modais resulta em uma ferramenta útil, rápida e simples de manter.
-
-Se você quiser evoluir o projeto, os próximos passos mais naturais são:
-
-- melhorar a validação das regras;
-- criar comandos extras;
-- armazenar histórico de rolamentos;
-- criar uma interface de configuração via comandos administrativos.
 
 ---
 
