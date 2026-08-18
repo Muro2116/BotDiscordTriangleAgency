@@ -81,7 +81,7 @@ def calcular_rolagem(dados, burnout=0, qa_gastos=0):
 # cria a embed para o discord exibir os resultados da rolagem
 def gerar_embed(dados, caos, is_triscendencia, burnout, qa_gastos):
     # cria a mensagem embed para o discord
-    embed = discord.Embed(title="Rolagem - Triangle Agency", color=discord.Color.dark_blue())
+    embed = discord.Embed(title="Resultados da Solicitação à Agência", color=discord.Color.dark_blue())
 
     # formata os emojis
     emojis_rolagem = []
@@ -101,17 +101,31 @@ def gerar_embed(dados, caos, is_triscendencia, burnout, qa_gastos):
     if is_triscendencia and burnout == 0 and qa_gastos == 0:
         embed.color = discord.Color.red()
         texto_triscendencia = (
-            "Parabéns! O RH te escolheu para brilhar com sua Triscêndencia, "
-            "não abuse muito, mas saiba que este é seu momento! "
-            "Celebre sua vitória. **Uhul!**\n\n"
-            "*Escolha um: All Hands, Circle Back ou Employee of the Moment.*"
+            "Todos nós trabalhamos juntos para fazer a Triscendência acontecer. No "
+            "momento do seu sucesso, você está psiquicamente conectado a cada "
+            "funcionário da Agência enquanto toma emprestado o nosso poder"
+            "combinado. Todos podem ver o que você está fazendo e celebrar a sua vitória, "
+            "e todos vão querer estar no seu lugar. "
+            "Dê um show! Com certeza você ouvirá comentários sobre o seu momento "
+            "Triscendente no bebedouro amanhã!\n\n"
+            "**Escolha um:** \n"
+            "*Todas as Mãos: Adicione qualquer número de resultados \"3\" a esta rolagem.*\n"
+            "*Retomar o Assunto: Reponha quaisquer 3 Garantias de Qualidade gastas.*\n"
+            "*Funcionário do Momento: Receba 3 Condecorações.*"
         )
         embed.add_field(name="TRISCÊNDENCIA!", value=texto_triscendencia, inline=False)
 
     # checa estabilidade (3 três sem ser triscendencia)
     elif dados.count(3) == 3:
         embed.color = discord.Color.red()
-        embed.add_field(name="Estabilidade", value="O resultado formou exatamente três 3s! Zero caos foi gerado.", inline=False)
+        texto_estabilidade = (
+            "A Estabilidade é o alicerce absoluto das nossas operações. Não se "
+            "trata de alcançar os picos da Triscendência, que é, francamente, "
+            "um pouco exibicionista e individualista. Trata-se de alcançar uma "
+            "conformidade perfeita, silenciosa e totalmente auditável "
+            "(o que é bem melhor para o compliance)."
+        )
+        embed.add_field(name="Estabilidade", value=texto_estabilidade, inline=False)
     
     embed.add_field(name="Resultados", value=" ".join(emojis_rolagem), inline=False)
 
@@ -196,7 +210,7 @@ async def rolar(interaction: discord.Interaction, burnout: int = 0):
     # logica de interface, exibe o botão de qa apenas sem burnout e se o usuário ainda tiver dados para converter
     view = None
 
-    if burnout == 0 and tres_finais < 6:
+    if burnout == 0 and tres_finais < 6 and is_triscendencia == False:
         view = QAView(dados_rolados)
 
     if view:
