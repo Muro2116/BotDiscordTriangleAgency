@@ -133,7 +133,7 @@ def gerar_embed(dados, caos, is_triscendencia, burnout, qa_gastos):
     if caos > 0:
         embed.add_field(name="Caos Gerado", value=f"**{caos}** {CAOS_EMOJI}", inline=False)
     else:
-        embed.add_field(name="Caos Gerado", value="**0**", inline=False)
+        embed.add_field(name="Caos Gerado", value="**0** " + CAOS_EMOJI, inline=False)
 
     # rodapé informativo
     if burnout > 0:
@@ -193,7 +193,7 @@ class QAView(discord.ui.View):
         await interaction.response.send_modal(QAModal(self.dados_originais))
     
 # comando de barra para rolar os dados
-@bot.tree.command(name="rolar", description="Rola 6 dados para o sistema Triangle Agency.")
+@bot.tree.command(name="solicitar-a-agencia", description="Rola 6 dados para o sistema Triangle Agency.")
 
 # burnout opcional
 @app_commands.describe(burnout="Quantidade de Burnout a aplicar (Opcional, padrão: 0)")

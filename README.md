@@ -1,172 +1,38 @@
 # Triangle Agency Discord Bot
 
-Bot para rolagem de dados do sistema Triangle Agency no Discord, com suporte a comandos de barra (/rolar), cálculo de caos, Triscêndencia, burnout e uso de Quality Assurances (QA) por meio de interações em interface gráfica do Discord.
+Bot em Python para rolar dados do sistema Triangle Agency no Discord.
 
-## Visão geral
-
-Este projeto foi criado para automatizar a mecânica de dados do sistema Triangle Agency dentro de um servidor Discord. Em vez de jogadores terem que contar manualmente a rolagem, o bot:
+## O que ele faz
 
 - gera 6 dados de 1 a 4;
-- calcula o caos final;
-- detecta a Triscêndencia;
-- aplica regras de burnout;
-- oferece um botão para gastar QA em uma rolagem;
-- envia o resultado em um embed visual, com emojis personalizados.
+- calcula caos final;
+- detecta Triscêndencia;
+- aplica burnout;
+- permite gastar QA via botão interativo;
+- responde com embed visual no Discord.
 
-O bot foi escrito em Python usando a biblioteca discord.py e está pronto para ser executado localmente ou em qualquer ambiente com acesso a um token do Discord.
+## Tecnologias usadas
 
-## Funcionalidades
-
-### 1. Funcionalidade principal
-
-Comando disponível no Discord:
-
-- /rolar
-- parâmetro opcional: burnout
-
-Exemplo:
-
-- /rolar
-- /rolar burnout:2
-
-A rolagem gera 6 dados com valores de 1 a 4 e aplica a lógica de simulação do sistema.
-
-### 2. Cálculo de caos
-
-A lógica central do projeto calcula:
-
-- os dados resultantes;
-- a quantidade de caos gerado;
-- se a rolagem atingiu Triscêndencia;
-- se a rolagem formou exatamente três 3s (estabilidade/resultado especial).
-
-### 3. Triscêndencia
-
-Quando três dados saem com valor 3, o sistema identifica a condição especial de Triscêndencia e zera o caos, caso a rolagem não tenha sido modificada por burnout ou QA.
-
-### 4. Burnout
-
-O parâmetro burnout transforma a rolagem substituindo 3s por dados queimados. Esse ajuste altera o cálculo e pode produzir caos extra.
-
-### 5. QA (Quality Assurance)
-
-Depois da rolagem, o usuário pode clicar no botão "Gastar QA", que abre um modal. A partir dele, o bot recalcula a rolagem convertendo dados não 3 em 3 de acordo com a quantidade informada.
-
-### 6. Interface visual
-
-Os resultados são enviados em um embed Discord com:
-
-- título do bot;
-- emojis de dados;
-- mensagem de Triscêndencia;
-- campo com caos gerado;
-- rodapé informativo para burnout ou QA gasto.
-
----
-
-## Tecnologias e técnicas utilizadas
-
-### Python
-
-O projeto é construído em Python 3, aproveitando o paradigma orientado a objetos e a programação assíncrona.
-
-### discord.py
-
-A biblioteca principal usada para comunicação com a API do Discord.
-
-Principais usos:
-
-- criação do cliente do bot;
-- definição do `commands.Bot` customizado;
-- uso de `app_commands` para slash commands;
-- criação de embeds com `discord.Embed`;
-- criação de botões e modais com `discord.ui.View` e `discord.ui.Modal`;
-- tratamento de interações do usuário via `discord.Interaction`.
-
-### Async/Await
-
-O bot opera em ambiente assíncrono, o que é essencial para aplicações de Discord que respondem a eventos e interações do usuário em tempo real.
-
-### Variáveis de ambiente
-
-O projeto usa `.env` para guardar o token do bot sem expô-lo no código-fonte. Isso é feito com a biblioteca `python-dotenv`.
-
-### Lógica de jogo
-
-A função `calcular_rolagem()` implementa a regra central do sistema:
-
-- copia a lista de dados;
-- verifica Triscêndencia antes de alterações;
-- aplica burnout ou QA conforme a regra;
-- recalcula caos;
-- trata casos especiais de três 3s.
-
-### Interações do Discord
-
-A interface inclui:
-
-- `QAModal`: modal com campo de texto para inserir a quantidade de QA a ser paga;
-- `QAView`: view com botão para abrir o modal;
-- `interaction.response.send_message(...)` para enviar a resposta inicial;
-- `interaction.response.edit_message(...)` para atualizar a mensagem após o gasto de QA.
-
-### Emojis personalizados
-
-Os emojis foram definidos como strings com IDs do Discord e exibidos no embed para dar uma identidade visual ao bot.
-
----
+- Python 3
+- discord.py
+- dotenv
+- interação assíncrona com Discord (`commands.Bot`, slash commands, embeds, modais e botões)
 
 ## Estrutura do projeto
 
 ```text
-TriangleAgencyBot/
+BotDiscordTriangleAgency/
 ├── bot.py
-├── .env
 ├── requirements.txt
+├── .env.example
+├── .gitignore
 ├── README.md
-└── .gitignore
+└── .env
 ```
 
-### Arquivos principais
+## Como rodar localmente
 
-#### bot.py
-
-Arquivo principal do bot. Contém:
-
-- cliente do Discord;
-- lógica de rolagem;
-- criação dos embeds;
-- comandos e interações;
-- inicialização do bot.
-
-#### requirements.txt
-
-Lista as dependências do projeto.
-
-#### .env
-
-Arquivo local com a variável:
-
-```env
-DISCORD_TOKEN=seu_token_aqui
-```
-
----
-
-## Requisitos
-
-Antes de rodar o bot, você precisará de:
-
-- Python 3.9+ recomendado
-- acesso ao Discord Developer Portal
-- um servidor do Discord onde o bot será adicionado
-- um token do bot gerado no portal do Discord
-
----
-
-## Como configurar o ambiente local
-
-### 1. Clone o repositório
+### 1. Clone o projeto
 
 ```bash
 git clone https://github.com/Muro2116/BotDiscordTriangleAgency
@@ -182,7 +48,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Windows (PowerShell):
+Windows PowerShell:
 
 ```powershell
 python -m venv .venv
@@ -195,33 +61,25 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-Dependências do projeto:
+### 4. Configure o token do bot
 
-```txt
-discord.py==2.3.2
-python-dotenv==1.0.0
-audioop-lts==0.2.1
-```
-
-### 4. Crie o arquivo .env
-
-No diretório raiz do projeto, crie um arquivo chamado `.env` com o seguinte conteúdo:
+Crie um arquivo `.env` na raiz do projeto com:
 
 ```env
 DISCORD_TOKEN=SEU_TOKEN_AQUI
 ```
 
-> Importante: nunca compartilhe esse token publicamente no GitHub.
+Você pode usar o arquivo `.env.example` como base.
+
+> Nunca publique esse token no GitHub.
 
 ### 5. Crie o bot no Discord
 
 1. Acesse o Discord Developer Portal.
 2. Crie uma aplicação.
-3. Vá em "Bot".
-4. Clique em "Reset Token" e copie o valor.
-5. Cole esse valor no arquivo `.env`.
-6. Ative as permissões necessárias para o bot.
-7. Convide o bot para o servidor usando a URL de convite do portal.
+3. Vá em "Bot" e gere um token.
+4. Copie o token para o arquivo `.env`.
+5. Convide o bot para o servidor via OAuth2 > URL Generator.
 
 ### 6. Execute o bot
 
@@ -229,129 +87,53 @@ DISCORD_TOKEN=SEU_TOKEN_AQUI
 python bot.py
 ```
 
-Se tudo estiver correto, o terminal deve imprimir algo como:
+Se estiver tudo certo, o terminal deve mostrar:
 
 ```text
 bot operante e pronto para rolar dados!
 ```
 
----
+## Como usar
 
-## Como adicionar o bot ao servidor
-
-No Discord Developer Portal:
-
-1. Vá em "OAuth2" > "URL Generator";
-2. Selecione as permissões do bot;
-3. Gere a URL de convite;
-4. Abra a URL em um navegador;
-5. Escolha o servidor onde deseja instalar o bot;
-6. Confirme a autorização.
-
-Para slash commands funcionarem corretamente, o bot precisa estar dentro do servidor e ter as permissões necessárias para enviar mensagens e interações.
-
----
-
-## Como usar o bot
-
-No servidor do Discord, use o comando:
+No Discord, use:
 
 ```text
-/rolar
+/solicitar-a-agencia
 ```
 
-ou com burnout:
+Ou com burnout:
 
 ```text
-/rolar burnout:2
+/solicitar-a-agencia burnout:2
 ```
 
-O bot responderá com um embed contendo:
+O bot retorna um embed com os dados, caos, Triscêndencia e botão para gastar QA quando aplicável.
 
-- dados rolados;
-- caos gerado;
-- Triscêndencia, se houver;
-- botão para gastar QA, quando aplicável.
+## Regras principais implementadas
 
-### Exemplo prático
+- 6 dados de 1 a 4 são rolados;
+- a rolagem é avaliada por caos;
+- três 3s podem ativar Triscêndencia;
+- burnout altera os dados e o caos;
+- QA pode converter dados não 3 em 3 antes do cálculo final.
 
-Se o resultado for:
+## Arquivos importantes
 
-- dados: 3, 3, 4, 1, 2, 3
-
-o sistema detecta que há 3 valores 3 e, conforme a regra, isso pode ser tratado como Triscêndencia ou como estabilidade, dependendo da lógica aplicada.
-
-Se a rolagem sofrer burnout, o cálculo muda e alguns 3s podem ser convertidos em dados queimados, alterando o caos total.
-
----
-
-## Dicas de desenvolvimento
-
-### Segurança
-
-- nunca commitar o arquivo `.env`;
-- adicione `.env` no `.gitignore`;
-- use um token separado para desenvolvimento e produção.
-
-### Logs e debugging
-
-O código atual imprime mensagens de estado no terminal, o que ajuda em testes locais.
-
-Você pode adicionar logs mais detalhados para:
-
-- número de dados rolados;
-- quantidade de burnout aplicado;
-- valor de QA gasto;
-- total de caos calculado.
-
----
+- `bot.py`: lógica principal do bot
+- `requirements.txt`: dependências do projeto
+- `.env`: token do bot em ambiente local
 
 ## Troubleshooting
 
-### O bot não inicia
+Se o bot não iniciar:
 
-Verifique:
+- verifique se o Python está instalado;
+- confirme que o ambiente virtual foi ativado;
+- confira se o token do `.env` está correto;
+- rode `pip install -r requirements.txt` novamente.
 
-- se o Python está instalado corretamente;
-- se o ambiente virtual foi ativado;
-- se `requirements.txt` foi instalado;
-- se o `.env` contém um token válido.
+Se o comando `/solicitar-a-agencia` não aparecer:
 
-### O bot não aparece no servidor
-
-Confira:
-
-- se a URL de convite foi gerada com as permissões corretas;
-- se o bot foi adicionado ao servidor;
-- se o token não foi trocado ou revogado.
-
-### O comando /rolar não funciona
-
-Verifique:
-
-- se as Slash Commands do bot foram sincronizadas;
-- se o bot está online;
-- se o servidor possui interação habilitada corretamente;
-- se o código foi executado sem erro.
-
-### Erro de importação
-
-Execute:
-
-```bash
-pip install -r requirements.txt
-```
-
-e confirme que a biblioteca `discord.py` foi instalada corretamente.
-
----
-
-## Comandos rápidos
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env
-python bot.py
-```
+- confirme que o bot está no servidor;
+- confirme que as permissões de interação estão corretas;
+- reinicie o bot após adicionar o bot ao servidor.
